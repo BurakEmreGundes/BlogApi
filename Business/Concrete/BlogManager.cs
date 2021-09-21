@@ -1,4 +1,7 @@
-﻿using DataAccess.Abstract;
+﻿using Business.Abstract;
+using Business.Constants;
+using Core.Utilities.Results;
+using DataAccess.Abstract;
 using Entities.Concrete;
 using System;
 using System.Collections.Generic;
@@ -8,32 +11,39 @@ using System.Threading.Tasks;
 
 namespace Business.Concrete
 {
-    public class BlogManager
+    public class BlogManager:IBlogService
     {
         IBlogDal _blogDal;
         public BlogManager(IBlogDal blogDal)
         {
             _blogDal = blogDal;
         }
-
-        public void Add(Blog blog)
+            
+        public IResult Add(Blog blog)
         {
-            throw new NotImplementedException();
+            _blogDal.Add(blog);
+            return new SuccessResult(Messages.Added);
         }
 
-        public void Delete(Blog blog)
+        public IResult Delete(Blog blog)
         {
-            throw new NotImplementedException();
+            _blogDal.Delete(blog);
+            return new SuccessResult(Messages.Deleted);
         }
 
-        public List<Blog> GetAll()
+        public IDataResult<List<Blog>> GetAll()
         {
-            return _blogDal.GetAll();
+            return new SuccessDataResult<List<Blog>>(_blogDal.GetAll(),Messages.Listed);
         }
 
-        public void Update(Blog blog)
+        public IDataResult<Blog> GetById(int blogId)
         {
-            throw new NotImplementedException();
+            return new SuccessDataResult<Blog>(_blogDal.Get(b=>b.Id==blogId),Messages.Listed);
+        }
+
+        public IResult Update(Blog blog)
+        {
+            return new SuccessResult(Messages.Updated);
         }
     }
 }

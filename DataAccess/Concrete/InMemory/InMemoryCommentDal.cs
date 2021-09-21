@@ -1,4 +1,6 @@
-﻿using DataAccess.Abstract;
+﻿using Core.DataAccess.InMemory;
+using Core.Utilities.Results;
+using DataAccess.Abstract;
 using Entities.Concrete;
 using System;
 using System.Collections.Generic;
@@ -15,5 +17,6 @@ namespace DataAccess.Concrete.InMemory
         {
 
         }
+
     }
 }

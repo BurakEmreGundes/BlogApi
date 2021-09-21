@@ -7,7 +7,7 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DataAccess.Concrete.InMemory
+namespace Core.DataAccess.InMemory
 {
     public class InMemoryEntityRepositoryBase<T> : IEntityRepository<T> where T : class, IEntity, new()
     {
@@ -30,11 +30,10 @@ namespace DataAccess.Concrete.InMemory
 
         public T Get(Expression<Func<T, bool>> filter)
         {
-            return default;
-                
+            throw new NotImplementedException();
         }
 
-        public List<T> GetAll(Expression<Func<T, bool>> filter = null)
+        public List<T> GetAll(Expression<Func<T, bool>> filter=null)
         {
             return _items;
         }

@@ -1,5 +1,6 @@
 ﻿using Business.Concrete;
 using DataAccess.Concrete.InMemory;
+using DataAccess.EntityFramework;
 using Entities.Concrete;
 using System;
 using System.Collections.Generic;
@@ -10,11 +11,10 @@ namespace ConsoleUI
     {
         static void Main(string[] args)
         {
-            BlogManager blogManager = new BlogManager(new InMemoryBlogDal(new List<Blog> { 
-                new Blog { Id=1,Title="title-1",Content="Content-1"},
-            new Blog { Id=2,Title="title-2",Content="Content-2"}}));
+            BlogManager blogManager = new BlogManager(new EfBlogDal());
 
-            foreach (var item in blogManager.GetAll())
+            blogManager.Add(new Blog { Id = 4, Title = "title-4", Content = "Content-4" });
+            foreach (var item in blogManager.GetAll().Data)
             {
                 Console.WriteLine(item.Title);
             }
