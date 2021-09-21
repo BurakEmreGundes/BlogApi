@@ -1,8 +1,10 @@
 ﻿using Business.Abstract;
 using Business.Constants;
+using Business.ValidationRules.FluentValidation;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
+using FluentValidation;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,6 +23,15 @@ namespace Business.Concrete
             
         public IResult Add(Blog blog)
         {
+            var context = new ValidationContext<Blog>(blog);
+            BlogValidator blogValidator = new BlogValidator();
+            var result=blogValidator.Validate(context);
+
+            if (!result.IsValid)
+            {
+                throw new ValidationException(result.Errors);
+            }
+
             _blogDal.Add(blog);
             return new SuccessResult(Messages.Added);
         }
