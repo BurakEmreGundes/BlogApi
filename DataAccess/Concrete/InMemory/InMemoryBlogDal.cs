@@ -17,6 +17,10 @@ namespace DataAccess.Concrete.InMemory
         {
           
         }
-      
+
+        public List<Comment> GetBlogComments(int blogId)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

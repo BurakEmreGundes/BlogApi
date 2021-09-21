@@ -18,7 +18,7 @@ namespace WebAPI.Controllers
         {
             _blogService = blogService;
         }
-        
+
         [HttpGet("getall")]
         public IActionResult GetAll()
         {
@@ -27,7 +27,7 @@ namespace WebAPI.Controllers
             {
                 return Ok(result);
             }
-            
+
             return BadRequest(result);
         }
 
@@ -35,6 +35,16 @@ namespace WebAPI.Controllers
         public IActionResult GetById(int id)
         {
             var result = _blogService.GetById(id);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
+        [HttpGet("getblogcomments")]
+        public IActionResult GetBlogComments(int blogId)
+        {
+            var result = _blogService.GetBlogComments(blogId);
             if (result.Success)
             {
                 return Ok(result);
@@ -51,9 +61,30 @@ namespace WebAPI.Controllers
             }
             return BadRequest(result);
         }
-        
 
-     
+        [HttpPut("updateblog")]
+        public IActionResult Update(Blog blog)
+        {
+            var result = _blogService.Update(blog);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
+
+        [HttpDelete("deleteblog")]
+        public IActionResult Delete(Blog blog)
+        {
+            var result = _blogService.Delete(blog);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
+
+
 
     }
 }

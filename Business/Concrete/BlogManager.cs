@@ -38,6 +38,14 @@ namespace Business.Concrete
 
         public IResult Delete(Blog blog)
         {
+            var context = new ValidationContext<Blog>(blog);
+            BlogValidator blogValidator = new BlogValidator();
+            var result = blogValidator.Validate(context);
+
+            if (!result.IsValid)
+            {
+                throw new ValidationException(result.Errors);
+            }
             _blogDal.Delete(blog);
             return new SuccessResult(Messages.Deleted);
         }
@@ -47,6 +55,11 @@ namespace Business.Concrete
             return new SuccessDataResult<List<Blog>>(_blogDal.GetAll(),Messages.Listed);
         }
 
+        public IDataResult<List<Comment>> GetBlogComments(int blogId)
+        {
+            return new SuccessDataResult<List<Comment>>(_blogDal.GetBlogComments(blogId));
+        }
+
         public IDataResult<Blog> GetById(int blogId)
         {
             return new SuccessDataResult<Blog>(_blogDal.Get(b=>b.Id==blogId),Messages.Listed);
@@ -54,6 +67,15 @@ namespace Business.Concrete
 
         public IResult Update(Blog blog)
         {
+            var context = new ValidationContext<Blog>(blog);
+            BlogValidator blogValidator = new BlogValidator();
+            var result = blogValidator.Validate(context);
+
+            if (!result.IsValid)
+            {
+                throw new ValidationException(result.Errors);
+            }
+            _blogDal.Update(blog);
             return new SuccessResult(Messages.Updated);
         }
     }
