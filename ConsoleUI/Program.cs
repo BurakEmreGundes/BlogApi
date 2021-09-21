@@ -13,7 +13,7 @@ namespace ConsoleUI
         {
             BlogManager blogManager = new BlogManager(new EfBlogDal());
 
-            blogManager.Add(new Blog { Id = 4, Title = "title-4", Content = "Content-4" });
+            //blogManager.Add(new Blog { Id = 5, Title = "title-5", Content = "Content-5" });
             foreach (var item in blogManager.GetAll().Data)
             {
                 Console.WriteLine(item.Title);
