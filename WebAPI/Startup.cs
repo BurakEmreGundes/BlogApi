@@ -32,8 +32,6 @@ namespace WebAPI
         {
 
             services.AddControllers();
-            services.AddSingleton<IBlogService, BlogManager>();
-            services.AddSingleton<IBlogDal, EfBlogDal>();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "WebAPI", Version = "v1" });
